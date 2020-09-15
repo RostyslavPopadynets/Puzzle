@@ -3,13 +3,17 @@ package pazzle;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
 class PazzleButton extends JButton {
 
-    PazzleButton(Image image) {
+    private BufferedImage bufferedImage;
+
+    PazzleButton(Image image, BufferedImage bufferedImage) {
         super(new ImageIcon(image));
+        this.bufferedImage = bufferedImage;
         initUI();
     }
 
@@ -29,5 +33,9 @@ class PazzleButton extends JButton {
                 setBorder(BorderFactory.createLineBorder(Color.BLACK));
             }
         });
+    }
+
+    BufferedImage getBufferedImage() {
+        return bufferedImage;
     }
 }

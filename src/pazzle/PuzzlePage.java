@@ -23,14 +23,6 @@ class PuzzlePage extends JFrame {
     }
 
     private void initUI() {
-        List<Point> solution = new ArrayList<>();
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 3; j++) {
-                solution.add(new Point(i, j));
-            }
-        }
-
         List<PazzleButton> buttons = new ArrayList<>();
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -48,7 +40,7 @@ class PuzzlePage extends JFrame {
         int width = resized.getWidth(null);
         int height = resized.getHeight(null);
         PazzleButton auto = new PazzleButton("Automatic assembly of puzzles");
-        auto.addActionListener(e -> autoDrafting(buttons, panel, solution));
+        auto.addActionListener(e -> autoDrafting(buttons, panel));
         add(auto, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
 
@@ -57,8 +49,8 @@ class PuzzlePage extends JFrame {
                 Image image = createImage(new FilteredImageSource(resized.getSource(),
                         new CropImageFilter(j * width / 3, i * height / 4,
                                 (width / 3), height / 4)));
-                PazzleButton button = new PazzleButton(image);
-                button.putClientProperty("position", new Point(i, j));
+                PazzleButton button = new PazzleButton(image, resized.getSubimage(j * width / 3,
+                        i * height / 4, (width / 3), height / 4));
                 buttons.add(button);
             }
         }
@@ -70,16 +62,15 @@ class PuzzlePage extends JFrame {
             PazzleButton btn = buttons.get(i);
             panel.add(btn);
             btn.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            btn.addActionListener(new ClickAction(buttons, panel, solution));
+            btn.addActionListener(new ClickAction(buttons, panel));
         }
-
         setTitle("Puzzle");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void autoDrafting(List<PazzleButton> buttons, JPanel panel, List<Point> solution) {
-        new ClickAction(buttons, panel, solution).draft();
+    private void autoDrafting(List<PazzleButton> buttons, JPanel panel) {
+        new ClickAction(buttons, panel).draft();
     }
 
     private int getNewHeight(int width, int height) {
