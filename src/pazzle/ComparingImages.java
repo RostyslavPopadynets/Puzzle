@@ -235,34 +235,34 @@ class ComparingImages {
     private List<Integer> get2MiddleElements() {
         List<Integer> middleElements = new ArrayList<>();
         for (int i = 0; i < listRGBOfButtons.size(); i++) {
-            int l = 0;
-            int r = 0;
-            int b = 0;
-            int t = 0;
+            int left = 0;
+            int right = 0;
+            int bottom = 0;
+            int top = 0;
             for (int j = 0; j < listRGBOfButtons.size(); j++) {
                 if (i != j) {
                     if (comparePixels(listRGBOfButtons.get(i).get("right"),
                             listRGBOfButtons.get(j).get("left"))) {
-                        l++;
+                        left++;
                     }
                     if (comparePixels(listRGBOfButtons.get(i).get("left"),
                             listRGBOfButtons.get(j).get("right"))) {
-                        r++;
+                        right++;
                     }
                     if (comparePixels(listRGBOfButtons.get(i).get("top"),
                             listRGBOfButtons.get(j).get("bottom"))) {
-                        b++;
+                        bottom++;
                     }
                     if (comparePixels(listRGBOfButtons.get(i).get("bottom"),
                             listRGBOfButtons.get(j).get("top"))) {
-                        t++;
+                        top++;
                     }
                 }
             }
-            if (l == 1 && r == 1 && b == 1 && t >= 1) {
+            if (left == 1 && right == 1 && bottom == 1 && top >= 1) {
                 middleElements.add(i);
             }
-            if (l == 1 && r == 1 && b == 7 && t == 1) {
+            if (left == 1 && right == 1 && bottom == 7 && top == 1) {
                 middleElements.add(i);
             }
         }
